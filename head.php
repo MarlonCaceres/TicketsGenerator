@@ -3,7 +3,8 @@
     include "config/config.php";
     if (!isset($_SESSION['user_id'])&& $_SESSION['user_id']==null) {
         header("location: index.php");
-    }
+    }  
+
 ?>
 <?php 
     $id=$_SESSION['user_id'];
@@ -14,10 +15,7 @@
         $email = $row['email'];
         $profile_pic = $row['profile_pic'];
         $created_at = $row['created_at'];
-  
     }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -15,8 +15,8 @@
 			
 
 				$_SESSION['user_id'] = $row['id'];
+				$_SESSION['role'] = $row['role'];
 				header("location: ../dashboard.php");
-				
 
 		}else{
 			$invalid=sha1(md5("contrasena y email invalido"));

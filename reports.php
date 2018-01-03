@@ -7,7 +7,9 @@
     $priorities = mysqli_query($con,  "select * from priority");
     $statuses = mysqli_query($con, "select * from status");
     $kinds = mysqli_query($con, "select * from kind");
+
 ?>  
+
 
 
     <div class="right_col" role="main"><!-- page content -->
