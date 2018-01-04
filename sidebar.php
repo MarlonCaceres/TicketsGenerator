@@ -24,10 +24,13 @@
                         <a href="ticketsEmpresa.php"><i class="fa fa-align-left"></i>Tickets de la Empresa</a>
                     </li>
 
+                    <li class="<?php if(isset($active9)){echo $active9;}?>">
+                        <a href="tareasEmpresa.php"><i class="fa fa-tasks"></i> Tareas de la Empresa</a>
+                    </li>
+                    
                     <li class="<?php if(isset($active6)){echo $active6;}?>">
                         <a href="reports.php"><i class="fa fa-area-chart"></i> Reportes</a>
                     </li>
-
                     <?php } ?>
 
                     <?php if(isset($rol) && $rol!=null &&$rol=="Administrador"){ ?>

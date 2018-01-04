@@ -1,127 +1,142 @@
 <?php
-    $projects =mysqli_query($con, "select * from project");
+    /*$projects =mysqli_query($con, "select * from project");
     $priorities =mysqli_query($con, "select * from priority");
     $statuses =mysqli_query($con, "select * from status");
     $kinds =mysqli_query($con, "select * from kind");
     $categories =mysqli_query($con, "select * from category");
-    $empresas =mysqli_query($con, "select * from company");
+    $empresas =mysqli_query($con, "select * from company");*/
 
-    $id=isset($_POST['mod']);
-    echo $id;
+    //busca usuarios segun la empresa
+    $id=$_SESSION['user_id'];
+    
+    $usrs=mysqli_query($con,"SELECT Empresa from user where id=$id");
+    while ($row=mysqli_fetch_array($usrs)) {
+        $id_company = $row['Empresa'];
+    }
+    $usuarios=mysqli_query($con,"SELECT * from user where Empresa=$id_company");
+
+    //busca tickets segun la empresa
+    $tickets=mysqli_query($con,"SELECT * from ticket where empresa_id_asig=$id_company");
+
+    /*foreach ($tickets as $t) {
+        echo $t['title'];
+    }*/
+    
+    //$usuarios =mysqli_query($con, "select * from user where Empresa=");
+
 ?>
-    <!-- Modal -->
-    <div class="modal fade bs-example-modal-lg-udp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div> <!-- Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg-add"><i class="fa fa-plus-circle"></i> Agregar Tarea</button>
+    </div>
+    <div class="modal fade bs-example-modal-lg-add" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true" <?php if ($id==1){?> disabled <?php }?> >×</span>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel"> Editar Ticket</h4>
+                    <h4 class="modal-title" id="myModalLabel">Agregar Tarea</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal form-label-left input_mask" method="post" id="upd" name="upd">
-                        <div id="result2"></div>
-
-                        <input type="hidden" name="mod_id" id="mod_id">
-
-                        <div class="form-group">
+                    <form class="form-horizontal form-label-left input_mask" method="post" id="add" name="add">
+                        <div id="result"></div>
+                        <!--div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tipo
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="kind_id" required id="mod_kind_id" >
+                                <select class="form-control" name="kind_id" >
                                       <?php foreach($kinds as $p):?>
                                         <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
                                       <?php endforeach; ?>
                                 </select>
                             </div>
-                        </div>
+                        </div-->
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Titulo<span class="required">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input type="text" name="title" class="form-control" placeholder="Titulo" id="mod_title" required>
+                              <input type="text" name="title" class="form-control" placeholder="Titulo" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Descripción <span class="required">*</span>
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                              <textarea name="description" id="mod_description" class="form-control col-md-7 col-xs-12" required></textarea>
+                              <textarea name="description" class="form-control col-md-7 col-xs-12"  placeholder="Descripción"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Proyecto
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Usuario
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="project_id" required id="mod_project_id">
-                                    <option selected="" value="">-- Selecciona --</option>
-                                      <?php foreach($projects as $p):?>
-                                        <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
+                                <select class="form-control" name="user_id" >
+                                    <option selected="" value="" disabled="">-- Selecciona --</option>
+                                      <?php foreach($usuarios as $u):?>
+                                        <option value="<?php echo $u['id']; ?>"><?php echo $u['name']; ?></option>
                                       <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Empresa
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Ticket
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="empresa_id" id="mod_empresa_asig" >
+                                <select class="form-control" name="ticket_id" id="ticket_id" >
                                     <option selected="" value="" disabled>-- Selecciona --</option>
-                                    <?php foreach($empresas as $p):?>
-                                        <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
+                                    <?php foreach($tickets as $t):?>
+                                        <option value="<?php echo $t['id']; ?>"><?php echo $t['title']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tipo de trabajo
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="category_id" required id="mod_category_id">
-                                    <option selected="" value="">-- Selecciona --</option>
-                                      <?php /*foreach($categories as $p):*/?><!--
+                                <select class="form-control" name="category_id" id="category_id" -->
+                                    <!--<option selected="" value="">-- Selecciona --</option>
+                                      <?php /*foreach($categories as $p):*/?>
                                         <option value="<?php /*echo $p['id']; */?>"><?php /*echo $p['name']; */?></option>
                                       --><?php /*endforeach; */?>
-                                </select>
+                                <!--/select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha estimada de entrega</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="date" class="form-control" name="fecha_entrega" id="mod_fecha_entrega">
+                                <input type="date" class="form-control" name="fecha_entrega">
                             </div>
-                        </div>
-                        <div class="form-group">
+                        </div-->
+
+                        <!--<div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Prioridad
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="hidden"  name="priority_id" id="mod_h_priority_id" >
-                                <select class="form-control"  required id="mod_priority_id" disabled>
-                                  <?php foreach($priorities as $p):?>
-                                    <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
-                                  <?php endforeach; ?>
+                                <select class="form-control" name="priority_id" >
+                                    <option selected="" value="">-- Selecciona --</option>
+                                  <?php /*foreach($priorities as $p):*/?>
+                                    <option value="<?php /*echo $p['id']; */?>"><?php /*echo $p['name']; */?></option>
+                                  <?php /*endforeach; */?>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-group">
+                        </div>-->
+                        <!--div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Estado
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="hidden" name="status_id" id="mod_h_status_id" >
-                                <select  class="form-control"  required id="mod_status_id" disabled>
                                   <?php foreach($statuses as $p):?>
-                                    <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
+                                      <?php if($p['id']==1){ ?>
+                                      <input type="text" id="last-name" name="estado" class="form-control" value="<?php echo  $p['name']; ?>" disabled>
+                                      <?php }?>
                                   <?php endforeach; ?>
-                                </select>
                             </div>
-                        </div>
-                        
+                        </div-->
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                              <button id="upd_data" type="submit" class="btn btn-success">Guardar</button>
+                              <button id="save_data" type="submit" class="btn btn-success">Guardar</button>
                             </div>
-                        </div>
-                    </form>                
+                        </div>    
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

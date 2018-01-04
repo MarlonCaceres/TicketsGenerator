@@ -1,3 +1,4 @@
+
 <?php
 $title ="Tickets - empresa | ";
 include "head.php";
@@ -69,6 +70,7 @@ include "sidebar.php";
             type: "POST",
             url: "action/addticket.php",
             data: parametros,
+
             beforeSend: function(objeto){
                 $("#result").html("Mensaje: Cargando...");
             },
@@ -112,7 +114,6 @@ include "sidebar.php";
         var status_id = $("#status_id"+id).val();
         var fecha_entrega =$("#fecha_entrega"+id).val().split("/");
         var empresa_asig=$("#empresa_asig"+id).val();
-
         $("#mod_empresa_asig").on('change',function (e) {
             console.log($(this).val());
             var idEmpresa=$(this).val();
@@ -153,6 +154,7 @@ include "sidebar.php";
             success:function(data){
                 $('#mod_category_id').html(data);
                 $("#mod_category_id").val(category_id);
+
             }
         })
     }

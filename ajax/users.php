@@ -3,6 +3,7 @@
     include "../config/config.php";//Contiene funcion que conecta a la base de datos
     
     $action = (isset($_REQUEST['action']) && $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
+
     if (isset($_GET['id'])){
         $id_expence=intval($_GET['id']);
         $query=mysqli_query($con, "SELECT * from user where id='".$id_expence."'");
@@ -49,6 +50,7 @@
         $per_page = 10; //how much records you want to show
         $adjacents  = 4; //gap between pages after number of adjacents
         $offset = ($page - 1) * $per_page;
+        
         //Count the total number of row in your table*/
         $count_query   = mysqli_query($con, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
         $row= mysqli_fetch_array($count_query);
