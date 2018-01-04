@@ -8,13 +8,20 @@
 ?>
 <?php 
     $id=$_SESSION['user_id'];
+    $rol=$_SESSION['role'];
     $query=mysqli_query($con,"SELECT * from user where id=$id");
     while ($row=mysqli_fetch_array($query)) {
         $username = $row['username'];
         $name = $row['name'];
         $email = $row['email'];
+        $idempresa=$row['Empresa'];
         $profile_pic = $row['profile_pic'];
         $created_at = $row['created_at'];
+    }
+    //nombre de la empresa
+    $query=mysqli_query($con,"SELECT * from company where id=$idempresa");
+    while ($row=mysqli_fetch_array($query)) {
+        $empresa= $row['name'];
     }
 ?>
 <!DOCTYPE html>
@@ -63,7 +70,9 @@
                           <a href="#" class="site_title"><i class="fa fa-ticket"></i> <span>Ticketly</span></a>
                         </div>
                         <div class="clearfix"></div>
-
+                            <input type="hidden" id="idUser" value="<?php echo $id;?>">
+                            <input type="hidden" id="RolUser" value="<?php echo $rol;?>">
+                            <input type="hidden" id="idEmpresa" value="<?php echo $idempresa;?>">
                             <!-- menu profile quick info -->
                                 <div class="profile clearfix">
                                     <div class="profile_pic">
@@ -72,6 +81,8 @@
                                     <div class="profile_info">
                                         <span>Bienvenido,</span>
                                         <h2><?php echo $name;?></h2>
+                                        <p> Rol: <?php echo $rol;?><br><?php echo $empresa;?></p>
+
                                     </div>
                                 </div>
                             <!-- /menu profile quick info -->

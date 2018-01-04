@@ -4,6 +4,7 @@
     $statuses =mysqli_query($con, "select * from status");
     $kinds =mysqli_query($con, "select * from kind");
     $categories =mysqli_query($con, "select * from category");
+    $empresas =mysqli_query($con, "select * from company");
 ?>
     <!-- Modal -->
     <div class="modal fade bs-example-modal-lg-udp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -57,23 +58,41 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Categoria
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Empresa
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select class="form-control" name="empresa_id" id="mod_empresa_asig" >
+                                    <option selected="" value="" disabled>-- Selecciona --</option>
+                                    <?php foreach($empresas as $p):?>
+                                        <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tipo de trabajo
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <select class="form-control" name="category_id" required id="mod_category_id">
                                     <option selected="" value="">-- Selecciona --</option>
-                                      <?php foreach($categories as $p):?>
-                                        <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
-                                      <?php endforeach; ?>
+                                      <?php /*foreach($categories as $p):*/?><!--
+                                        <option value="<?php /*echo $p['id']; */?>"><?php /*echo $p['name']; */?></option>
+                                      --><?php /*endforeach; */?>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha estimada de entrega</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="date" class="form-control" name="fecha_entrega" id="mod_fecha_entrega">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Prioridad
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="priority_id" required id="mod_priority_id">
-                                    <option selected="" value="">-- Selecciona --</option>
+                                <input type="hidden"  name="priority_id" id="mod_h_priority_id" >
+                                <select class="form-control"  required id="mod_priority_id" disabled>
                                   <?php foreach($priorities as $p):?>
                                     <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
                                   <?php endforeach; ?>
@@ -84,8 +103,8 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Estado
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select  class="form-control" name="status_id" required id="mod_status_id">
-                                    <option selected="" value="">-- Selecciona --</option>
+                                <input type="hidden"name="status_id" id="mod_h_status_id" >
+                                <select  class="form-control"  required id="mod_status_id" disabled>
                                   <?php foreach($statuses as $p):?>
                                     <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
                                   <?php endforeach; ?>

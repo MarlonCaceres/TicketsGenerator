@@ -2,11 +2,22 @@ $(document).ready(function(){
 	load(1);
 });
 
+
 function load(page){
 	var q= $("#q").val();
+	var idEmpresa=$("#idEmpresa").val();
+	var RolUser=$("#RolUser").val();
+    var urlajax;
+	if(RolUser =="Administrador"){
+        urlajax='./ajax/categories.php?action=ajax&page='+page+'&q='+q+'&Admin=1';
+	}else{
+        urlajax='./ajax/categories.php?action=ajax&page='+page+'&q='+q+'&emp='+idEmpresa;
+	}
+
+
 	$("#loader").fadeIn('slow');
 	$.ajax({
-		url:'./ajax/categories.php?action=ajax&page='+page+'&q='+q,
+		url:urlajax,
 		beforeSend: function(objeto){
 		$('#loader').html('<img src="./images/ajax-loader.gif"> Cargando...');
 		},

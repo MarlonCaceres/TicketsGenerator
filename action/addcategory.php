@@ -12,8 +12,12 @@
 		$name=mysqli_real_escape_string($con,(strip_tags($_POST["name"],ENT_QUOTES)));
 		$created_at=date("Y-m-d H:i:s");
 		$user_id=$_SESSION['user_id'];
-
-		$sql="INSERT INTO category (name) VALUES (\"$name\")";
+		$idEmpresa=$_SESSION['idEmpresa'] ;
+        $RolUser=$_SESSION['role'] ;
+        if($RolUser =='Administrador')
+            $sql="INSERT INTO category (name) VALUES (\"$name\")";
+        else
+		   $sql="INSERT INTO category (name,empresa_id) VALUES (\"$name\",$idEmpresa )";
 		$query_new_insert = mysqli_query($con,$sql);
 			if ($query_new_insert){
 				$messages[] = "Tu categoria ha sido ingresado satisfactoriamente.";

@@ -15,7 +15,7 @@
                     ?>
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Gastos</h2>
+                            <h2>Mis tickets</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -79,7 +79,7 @@ $("#add").submit(function(event) {
           }
     });
   event.preventDefault();
-})
+});
 
 
 $( "#upd" ).submit(function( event ) {
@@ -100,7 +100,7 @@ $( "#upd" ).submit(function( event ) {
           }
     });
   event.preventDefault();
-})
+});
 
     function obtener_datos(id){
         var description = $("#description"+id).val();
@@ -110,14 +110,51 @@ $( "#upd" ).submit(function( event ) {
         var category_id = $("#category_id"+id).val();
         var priority_id = $("#priority_id"+id).val();
         var status_id = $("#status_id"+id).val();
+        var fecha_entrega =$("#fecha_entrega"+id).val().split("/");
+        var empresa_asig=$("#empresa_asig"+id).val();
+
+        $("#mod_empresa_asig").on('change',function (e) {
+            console.log($(this).val());
+            var idEmpresa=$(this).val();
+
+            $.ajax({
+                url:'./ajax/categories.php?action=ajax&idEmpresa='+idEmpresa,
+                success:function(data){
+                    $('#mod_category_id').html(data);
+                }
+            })
+        });
+
+        var now = new Date(fecha_entrega[2],fecha_entrega[1]-1,fecha_entrega[0]);
+        console.log(now);
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+        console.log(today)
+
             $("#mod_id").val(id);
             $("#mod_title").val(title);
             $("#mod_description").val(description);
             $("#mod_kind_id").val(kind_id);
             $("#mod_project_id").val(project_id);
-            $("#mod_category_id").val(category_id);
+
             $("#mod_priority_id").val(priority_id);
+            $("#mod_h_priority_id").val(priority_id);
             $("#mod_status_id").val(status_id);
+            $("#mod_h_status_id").val(status_id);
+            $("#mod_fecha_entrega").val(today);
+            console.log($("#mod_fecha_entrega").val());
+            $("#mod_empresa_asig").val(empresa_asig);
+            console.log("empresa_asig",new Date(fecha_entrega));
+
+        $.ajax({
+            url:'./ajax/categories.php?action=ajax&idEmpresa='+empresa_asig,
+            success:function(data){
+                $('#mod_category_id').html(data);
+                $("#mod_category_id").val(category_id);
+            }
+        })
         }
 
 </script>

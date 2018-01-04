@@ -29,11 +29,22 @@
 <?php
     if($action == 'ajax'){
 
-        $idUser=(isset( $_REQUEST["solicUser"])&& !empty($_REQUEST["solicUser"]))? mysqli_real_escape_string($con,(strip_tags($_REQUEST["solicUser"], ENT_QUOTES))):null;
+        $idEmpresa=(isset( $_REQUEST["emp"])&& !empty($_REQUEST["emp"]))? mysqli_real_escape_string($con,(strip_tags($_REQUEST["emp"], ENT_QUOTES))):null;
         // escaping, additionally removing everything that could be (html/javascript-) code
+
+        //Admin Mode
+        $isAdmin=(isset( $_REQUEST["Admin"])&& !empty($_REQUEST["Admin"]) && $_REQUEST["Admin"] ==1)? true:false;
+
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-         $qArray=array($q,$idUser);
-         $aColumns = array('title','user_id');//Columnas de busqueda
+         $qArray=array($q,$idEmpresa);
+
+        //Columnas de busqueda
+        if (($idEmpresa == null)){
+            $aColumns = array('title');
+        }else{
+            $aColumns = array('title','empresa_id_asig');//Columnas de busqueda
+        }
+
          $sTable = "ticket";
          $sWhere = "";
         if (true)
@@ -80,7 +91,7 @@
                 <thead>
                     <tr class="headings">
                         <th class="column-title">Asunto </th>
-                        <th class="column-title">Solicitado a:</th>
+                        <th class="column-title">Solicitado por:</th>
                         <th class="column-title">Tipo de Trabajo:</th>
                         <th class="column-title">Proyecto </th>
                         <th class="column-title">Prioridad </th>
@@ -105,7 +116,8 @@
                             $status_id=$r['status_id'];
                             $kind_id=$r['kind_id'];
                             $category_id=$r['category_id'];
-                            $empresa_asig=$r['empresa_id_asig'];
+                            $user_id=$r['user_id'];
+
 
                             $sql = mysqli_query($con, "select * from category where id=$category_id");
                             if($c=mysqli_fetch_array($sql)) {
@@ -127,9 +139,9 @@
                                 $name_status=$c['name'];
                             }
 
-                            $sql = mysqli_query($con, "select * from company where id=$empresa_asig");
+                            $sql = mysqli_query($con, "select * from user where id=$user_id");
                             if($c=mysqli_fetch_array($sql)) {
-                                $name_company=$c['name'];
+                                $user_name=$c['name'];
                             }
 
 
@@ -150,7 +162,7 @@
 
                     <tr class="even pointer">
                         <td><?php echo $title;?></td>
-                        <td><?php echo $name_company; ?></td>
+                        <td><?php echo $user_name; ?></td>
                         <td><?php echo $name_category; ?></td>
                         <td><?php echo $name_project; ?></td>
                         <td><?php echo $name_priority; ?></td>

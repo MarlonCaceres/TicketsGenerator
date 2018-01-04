@@ -21,10 +21,14 @@ $(document).ready(function(){
 function load(page){
 	var q= $("#q").val();
 
-    var idUser=$("#idUser").val();
+    var idEmpresa=$("#idEmpresa").val();
     var RolUser=$("#RolUser").val();
     var urlajax;
-    urlajax='./ajax/tickets.php?action=ajax&page='+page+'&q='+q+'&solicUser='+idUser;
+    if(RolUser =="Administrador") {
+        urlajax = './ajax/ticketsEmpresas.php?action=ajax&page=' + page + '&q=' + q + '&Admin=1';
+    }else{
+        urlajax = './ajax/ticketsEmpresas.php?action=ajax&page=' + page + '&q=' + q + '&emp=' + idEmpresa;
+	}
 
 
 

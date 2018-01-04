@@ -1,7 +1,10 @@
 <?php
-
+session_start();
 //upload file by abisoft https://github.com/amnersaucedososa 
 include "../config/config.php";
+if (isset($_SESSION['user_id'])&& $_SESSION['user_id']!=null) {
+    $idUser=$_SESSION['user_id'];
+}
 
 if (isset($_FILES["file"]))
 {
@@ -25,7 +28,7 @@ if (isset($_FILES["file"]))
         $src = $folder.$name;
        @move_uploaded_file($tmp_n, $src);
 
-       $query=mysqli_query($con, "UPDATE user set profile_pic=\"$name\"");
+       $query=mysqli_query($con, "UPDATE user set profile_pic=\"$name\" where id=$idUser");
        if($query){
         echo "<div class='alert alert-success' role='alert'>
             <button type='button' class='close' data-dismiss='alert'>&times;</button>

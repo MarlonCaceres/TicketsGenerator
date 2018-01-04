@@ -17,15 +17,20 @@
 		$description = $_POST["description"];
 		$category_id = $_POST["category_id"];
 		$project_id = $_POST["project_id"];
-		$priority_id = $_POST["priority_id"];
+		$priority_id =  (isset( $_POST["priority_id"])&& !empty($_POST["priority_id"]))?$_POST["priority_id"]:1;
+		$empresa_id=$_POST["empresa_id"];
+		$fecha_entrega= date("Y-m-d", strtotime($_POST["fecha_entrega"]));
+
+
+
 		$user_id = $_SESSION["user_id"];
-		$status_id = $_POST["status_id"];
+		$status_id = 1;
 		$kind_id = $_POST["kind_id"];
 		$created_at="NOW()";
 
-		// $user_id=$_SESSION['user_id'];
+		//$user_id=$_SESSION['user_id'];
 
-		$sql="insert into ticket (title,description,category_id,project_id,priority_id,user_id,status_id,kind_id,created_at) value (\"$title\",\"$description\",\"$category_id\",\"$project_id\",$priority_id,$user_id,$status_id,$kind_id,$created_at)";
+		$sql="insert into ticket (title,description,category_id,project_id,priority_id,user_id,status_id,kind_id,created_at,fecha_entrega,empresa_id_asig) value (\"$title\",\"$description\",\"$category_id\",\"$project_id\",$priority_id,$user_id,$status_id,$kind_id,$created_at,\"$fecha_entrega\",$empresa_id)";
 
 		$query_new_insert = mysqli_query($con,$sql);
 			if ($query_new_insert){

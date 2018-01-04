@@ -9,13 +9,14 @@
 	$email=mysqli_real_escape_string($con,(strip_tags($_POST["email"],ENT_QUOTES)));
 	$password=sha1(md5(mysqli_real_escape_string($con,(strip_tags($_POST["password"],ENT_QUOTES)))));
 
-    $query = mysqli_query($con,"SELECT * FROM user WHERE email =\"$email\" OR username=\"$email\" AND password = \"$password\";");
+    $query = mysqli_query($con,"SELECT * FROM user WHERE (email =\"$email\" OR username=\"$email\") AND password = \"$password\";");
 
 		if ($row = mysqli_fetch_array($query)) {
 			
 
 				$_SESSION['user_id'] = $row['id'];
 				$_SESSION['role'] = $row['role'];
+                $_SESSION['idEmpresa'] = $row['Empresa'];
 				header("location: ../dashboard.php");
 
 		}else{

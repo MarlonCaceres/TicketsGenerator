@@ -4,6 +4,8 @@
     $statuses =mysqli_query($con, "select * from status");
     $kinds =mysqli_query($con, "select * from kind");
     $categories =mysqli_query($con, "select * from category");
+$empresas =mysqli_query($con, "select * from company");
+
 ?>
 
     <div> <!-- Modal -->
@@ -57,39 +59,57 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Categoria
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Empresa
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="category_id" >
-                                    <option selected="" value="">-- Selecciona --</option>
-                                      <?php foreach($categories as $p):?>
+                                <select class="form-control" name="empresa_id" id="empresa_id" >
+                                    <option selected="" value="" disabled>-- Selecciona --</option>
+                                    <?php foreach($empresas as $p):?>
                                         <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
-                                      <?php endforeach; ?>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tipo de trabajo
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select class="form-control" name="category_id" id="category_id" >
+                                    <!--<option selected="" value="">-- Selecciona --</option>
+                                      <?php /*foreach($categories as $p):*/?>
+                                        <option value="<?php /*echo $p['id']; */?>"><?php /*echo $p['name']; */?></option>
+                                      --><?php /*endforeach; */?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha estimada de entrega</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="date" class="form-control" name="fecha_entrega">
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Prioridad
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <select class="form-control" name="priority_id" >
                                     <option selected="" value="">-- Selecciona --</option>
-                                  <?php foreach($priorities as $p):?>
-                                    <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
-                                  <?php endforeach; ?>
+                                  <?php /*foreach($priorities as $p):*/?>
+                                    <option value="<?php /*echo $p['id']; */?>"><?php /*echo $p['name']; */?></option>
+                                  <?php /*endforeach; */?>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Estado
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="status_id" >
-                                    <option selected="" value="">-- Selecciona --</option>
                                   <?php foreach($statuses as $p):?>
-                                    <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
+                                      <?php if($p['id']==1){ ?>
+                                      <input type="text" id="last-name" name="estado" class="form-control" value="<?php echo  $p['name']; ?>" disabled>
+                                      <?php }?>
                                   <?php endforeach; ?>
-                                </select>
                             </div>
                         </div>
                         <div class="ln_solid"></div>

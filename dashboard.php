@@ -3,10 +3,17 @@
     include "head.php";
     include "sidebar.php";
 
-    $TicketData=mysqli_query($con, "select * from ticket where status_id=1");
-    $ProjectData=mysqli_query($con, "select * from project");
-    $CategoryData=mysqli_query($con, "select * from category");
-    $UserData=mysqli_query($con, "select * from user order by created_at desc");
+
+        $ProjectData=mysqli_query($con, "select * from project");
+    if($rol=='Administrador'){
+        $TicketData=mysqli_query($con, "select * from ticket where status_id!=4");
+        $CategoryData=mysqli_query($con, "select * from category");
+        $UserData=mysqli_query($con, "select * from user order by created_at desc");
+    }else{
+        $TicketData=mysqli_query($con, "select * from ticket where status_id!=4 AND 	empresa_id_asig =".$idempresa);
+        $CategoryData=mysqli_query($con, "select * from category where empresa_id=".$idempresa);
+    }
+
 ?>
     <div class="right_col" role="main"> <!-- page content -->
         <div class="">
@@ -33,7 +40,7 @@
                           <h3>Categorias</h3>
                         </div>
                     </div>
-                    
+                    <?php if($rol=='Administrador'){ ?>
                     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-users"></i></div>
@@ -41,6 +48,7 @@
                           <h3>Usuarios</h3>
                         </div>
                     </div>
+                    <?php }?>
                 </div>
                 <!-- content -->
                 <br><br>
@@ -86,6 +94,21 @@
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" id="last-name" name="email" class="form-control col-md-7 col-xs-12" value="<?php echo $email; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Rol de usuario
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="rol" name="rol" class="form-control col-md-7 col-xs-12" value="<?php echo $rol; ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Empresa
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="empresa" name="empresa" class="form-control col-md-7 col-xs-12" value="<?php echo $empresa; ?>" disabled>
                                         </div>
                                     </div>
 
