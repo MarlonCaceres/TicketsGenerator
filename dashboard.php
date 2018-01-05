@@ -37,7 +37,7 @@
                         <div class="tile-stats">
                           <div class="icon"><i class="fa fa-th-list"></i></div>
                           <div class="count"><?php echo mysqli_num_rows($CategoryData) ?></div>
-                          <h3>Categorias</h3>
+                          <h3>Tipos de trabajo</h3>
                         </div>
                     </div>
                     <?php if($rol=='Administrador'){ ?>

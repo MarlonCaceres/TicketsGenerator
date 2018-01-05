@@ -10,8 +10,8 @@
                 <div class="clearfix"></div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <?php
-                        include("modal/new_tarea.php");
-                        include("modal/upd_tarea.php");
+                        /*include("modal/new_tarea.php");*/
+                        include("modal/view_ticket.php");
                     ?>
                     <div class="x_panel">
                         <div class="x_title">
@@ -60,7 +60,7 @@
 
 <script type="text/javascript" src="js/tareas.js"></script>
 <script>
-$("#add").submit(function(event) {
+/*$("#add").submit(function(event) {
   $('#save_data').attr("disabled", true);
   
  var parametros = $(this).serialize();
@@ -99,25 +99,53 @@ $( "#upd" ).submit(function( event ) {
           }
     });
   event.preventDefault();
-});
+});*/
 
     function obtener_datos(id){
-        var description = $("#description"+id).val();
-        var title = $("#title"+id).val();
-        var user_id = $("#user_id"+id).val();
         var ticket_id = $("#ticket_id"+id).val();
-        var status = $("#status"+id).val();
-        var create_date =$("#create_date"+id).val().split("/");
+        $.ajax({
+            type: "POST",
+            url: "ajax/tickets.php?id="+ticket_id+"&getTicket=1",
+            beforeSend: function(objeto){
+//                $("#result2").html("Mensaje: Cargando...");
+            },
+            success: function(datos){
+                datos =JSON.parse(datos);
+            console.log(datos);
+                $("#mod_title").val(datos.title);
+                $("#mod_description").val(datos.description);
+                $("#mod_project_id").val(datos.proyecto);
+                $("#mod_kind_id").val(datos.tipo);
+                $("#mod_priority_id").val(datos.Prioridad);
+                $("#mod_status_id").val(datos.Estado);
+                $("#mod_solicitado").val(datos.solicitante);
+                $("#mod_category_id").val(datos.tipo_trabajo);
 
-            $("#mod_id").val(id);
-            $("#mod_title").val(title);
-            $("#mod_description").val(description);
-            $("#mod_user_id").val(user_id);
-            $("#mod_ticket_id").val(ticket_id);
-            $("#mod_status").val(status);
-            $("#mod_create_date").val(create_date);
+                var txt="<ul>";
+                    txt+="<li><strong>Solicitado en:</strong>"+datos.created_at+"</li>";
+                    txt+="<li> <strong>Ultima Modificación: </strong>"+(datos.updated_at==null?datos.created_at:datos.updated_at)+"</li>";
+                    txt+="<li> <strong>Fecha de entrega:</strong>"+(datos.fecha_entrega==null?'Sin Definir':datos.fecha_entrega)+"</li></ul>";
+                $("#mod_fechas").html(txt);
+            }
+        });
 
         
         }
+
+     function statustarea(id){
+        console.log("holadad");
+         $.ajax({
+             type: "GET",
+             url: "./ajax/tareas.php?id="+id+"&action=statusUpdate",
+
+             beforeSend: function(objeto){
+                 $("#resultados").html("Mensaje: Cargando...");
+             },
+             success: function(datos){
+                 $("#resultados").html(datos);
+                 load(1);
+             }
+         });
+     }
 
 </script>

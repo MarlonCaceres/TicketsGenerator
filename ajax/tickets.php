@@ -3,12 +3,19 @@
     include "../config/config.php";//Contiene funcion que conecta a la base de datos
     
     $action = (isset($_REQUEST['action']) && $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
+    $getTicket = (isset($_REQUEST['getTicket']) && $_REQUEST['getTicket'] !=NULL)?$_REQUEST['getTicket']:'';
     if (isset($_GET['id'])){
         $id_del=intval($_GET['id']);
-        $query=mysqli_query($con, "SELECT * from ticket where id='".$id_del."'");
-        $count=mysqli_num_rows($query);
+        if($getTicket=="1"){
+            $query="SELECT ticket.id,ticket.title,ticket.description, ticket.updated_at,ticket.created_at,ticket.fecha_entrega, tk.name as tipo,tc.name as \"tipo_trabajo\",tpr.name as proyecto,tu.name as \"solicitante\",tp.name as Prioridad,ts.name as Estado FROM `ticket` LEFT JOIN kind as tk on (tk.id=ticket.kind_id) LEFT JOIN status as ts on (ts.id=ticket.status_id) LEFT JOIN priority as tp on (tp.id=ticket.priority_id) LEFT JOIN category as tc on (tc.id=ticket.category_id) LEFT JOIN user as tu on (tu.id=ticket.user_id) LEFT JOIN project as tpr on (tpr.id = ticket.project_id) WHERE ticket.id=$id_del";
+            echo json_encode(mysqli_fetch_array(mysqli_query($con,$query)));
+        }else{
+            $query=mysqli_query($con, "SELECT * from ticket where id='".$id_del."'");
+            $count=mysqli_num_rows($query);
 
             if ($delete1=mysqli_query($con,"DELETE FROM ticket WHERE id='".$id_del."'")){
+
+
 ?>
             <div class="alert alert-success alert-dismissible" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -24,6 +31,7 @@
     <?php
             } //end else
         } //end if
+    }
     ?>
 
 <?php

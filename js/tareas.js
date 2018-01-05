@@ -25,7 +25,7 @@ function load(page){
 }
 
 
-function eliminar (id)
+function eliminar22(id)
 {
 	var q= $("#q").val();
 	if (confirm("Realmente deseas eliminar el ticket?")){	

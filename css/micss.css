@@ -29,3 +29,6 @@
 .btn-my-button:hover{
     color: #fff;
 }
+textarea.form-control {
+    height: 250px;
+}

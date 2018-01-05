@@ -28,7 +28,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tipo
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="kind_id" required id="mod_kind_id" >
+                                <select class="form-control" name="kind_id" required id="mod_kind_id" disabled >
                                       <?php foreach($kinds as $p):?>
                                         <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
                                       <?php endforeach; ?>

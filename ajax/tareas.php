@@ -3,27 +3,57 @@
 
     $action = (isset($_REQUEST['action']) && $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 
-    if (isset($_GET['id'])){
-        $id_del=intval($_GET['id']);
-        $query=mysqli_query($con, "SELECT * from tareas where id='".$id_del."'");
-        $count=mysqli_num_rows($query);
+    if (isset($_GET['id'])) {
+        $id_del = intval($_GET['id']);
 
-            if ($delete1=mysqli_query($con,"DELETE FROM tareas WHERE id='".$id_del."'")){
-?>
-            <div class="alert alert-success alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <strong>Aviso!</strong> Datos eliminados exitosamente.
-            </div>
-        <?php 
-            }else {
-        ?>
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <strong>Error!</strong> Lo siento algo ha salido mal intenta nuevamente.
+        if ($action == "statusUpdate") {
+            $status = mysqli_query($con,"SELECT status from tareas where id='".$id_del."'");
+
+            while ($st =mysqli_fetch_array($status)){
+                $stint = $st['status'] == '0'?1:0;
+
+            }
+                $query = mysqli_query($con, "UPDATE tareas SET status = ".$stint." WHERE id='" . $id_del . "'");
+            if($query){
+                ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <strong>Aviso!</strong> Cambio realizado exitosamente.
                 </div>
-    <?php
+                <?php
+            }else{
+                ?>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <strong>Error!</strong> Lo siento algo ha salido mal intenta nuevamente.
+                </div>
+                <?php
+            }
+        } else {
+            $query = mysqli_query($con, "SELECT * from tareas where id='" . $id_del . "'");
+            $count = mysqli_num_rows($query);
+            if ($delete1 = mysqli_query($con, "DELETE FROM tareas WHERE id='" . $id_del . "'")) {
+                ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <strong>Aviso!</strong> Datos eliminados exitosamente.
+                </div>
+                <?php
+            } else {
+
+                ?>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <strong>Error!</strong> Lo siento algo ha salido mal intenta nuevamente.
+                </div>
+                <?php
             } //end else
         } //end if
+    }
     ?>
 
 <?php
@@ -104,14 +134,17 @@
                                 $name_usr=$u['name'];
                             }
 
-                            $sql = mysqli_query($con, "select * from ticket where id=$ticket_id");
+                            $sqlm="select * from ticket where id=$ticket_id";
+                            $sql = mysqli_query($con, $sqlm);
                             if($t=mysqli_fetch_array($sql)) {
                                 $id_t=$t['title'];
+
                             }
 
 
                 ?>
                     <input type="hidden" value="<?php echo $id;?>" id="id<?php echo $id;?>">
+
                     <input type="hidden" value="<?php echo $title;?>" id="title<?php echo $id;?>">
                     <input type="hidden" value="<?php echo $description;?>" id="description<?php echo $id;?>">
                     <!-- me obtiene los datos -->
@@ -119,6 +152,8 @@
                     <input type="hidden" value="<?php echo $ticket_id;?>" id="ticket_id<?php echo $id;?>">
                     <input type="hidden" value="<?php echo $status;?>" id="status<?php echo $id;?>">
                     <input type="hidden" value="<?php echo $created_date;?>" id="created_date<?php echo $id;?>">
+
+
 
 
                     <tr class="even pointer">
@@ -134,8 +169,8 @@
                         
                         <td><?php echo $created_at;?></td>
                         <td ><span class="pull-right">
-                        <a href="#" class='btn btn-default' title='Editar producto' onclick="obtener_datos('<?php echo $id;?>');" data-toggle="modal" data-target=".bs-example-modal-lg-udp"><i class="glyphicon glyphicon-edit"></i></a> 
-                        <a href="#" class='btn btn-default' title='Borrar producto' onclick="eliminar('<?php echo $id; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
+                        <a href="#" class='btn btn-default' title='Editar producto' onclick="obtener_datos('<?php echo $id;?>');" data-toggle="modal" data-target=".bs-example-modal-lg-udp"><i class="fa fa-ticket"></i></a>
+                        <a href="#" class='btn btn-default' title='Borrar producto' onclick="statustarea('<?php echo $id; ?>')"><i class="<?php if ($status==1){?> fa fa-check <?php }else{?> fa fa-times <?php }?>"  ></i> </a></span></td>
                     </tr>
                 <?php
                     } //en while
