@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6126469c-430c-4640-ad04-d597c0f8630f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/action/gettickets.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modal/view_ticket.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ajax/tareas.php" afterPath="$PROJECT_DIR$/ajax/tareas.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ajax/tickets.php" afterPath="$PROJECT_DIR$/ajax/tickets.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/micss.css" afterPath="$PROJECT_DIR$/css/micss.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard.php" afterPath="$PROJECT_DIR$/dashboard.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/tareas.js" afterPath="$PROJECT_DIR$/js/tareas.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modal/new_ticket.php" afterPath="$PROJECT_DIR$/modal/new_ticket.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modal/upd_ticket.php" afterPath="$PROJECT_DIR$/modal/upd_ticket.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tareas.php" afterPath="$PROJECT_DIR$/tareas.php" />
-    </list>
+    <list default="true" id="6126469c-430c-4640-ad04-d597c0f8630f" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -575,16 +563,15 @@
       <option name="presentableId" value="Default" />
       <updated>1514989365396</updated>
       <workItem from="1514989367894" duration="31254000" />
-      <workItem from="1515183751805" duration="7623000" />
+      <workItem from="1515183751805" duration="7761000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38877000" />
+    <option name="totallyTimeSpent" value="39015000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.165625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
