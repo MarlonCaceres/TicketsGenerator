@@ -62,8 +62,8 @@
         $idtarea=(isset( $_REQUEST["idU"])&& !empty($_REQUEST["idU"]))? mysqli_real_escape_string($con,(strip_tags($_REQUEST["idU"], ENT_QUOTES))):null;
         // escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-         $qArray=array($q,$idtarea);
-         $aColumns = array('title','user_id');//Columnas de busqueda
+         $qArray=array($q,$idtarea,'1');
+         $aColumns = array('title','user_id','status');//Columnas de busqueda
          $sTable = "tareas";
          $sWhere = "";
         if (true)

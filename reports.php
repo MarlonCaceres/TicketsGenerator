@@ -82,7 +82,7 @@
                                 <div class="col-lg-3">
                                     <div class="input-group">
                                         <span class="input-group-addon">TIPO</span>
-                                        <select name="kind_id" class="form-control">
+                                        <select name="kind_id" class="form-control" disabled>
                                           <?php foreach($kinds as $p):?>
                                             <option value="<?php echo $p['id']; ?>" <?php if(isset($_GET["kind_id"]) && $_GET["kind_id"]==$p['id']){ echo "selected"; } ?>><?php echo $p['name']; ?></option>
                                           <?php endforeach; ?>

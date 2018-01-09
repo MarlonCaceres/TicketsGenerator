@@ -13,4 +13,11 @@
     if (@mysqli_connect_errno()) {
         @die("Conexión falló: ".mysqli_connect_errno()." : ". mysqli_connect_error());
     }
+
+    //Imprimir un array
+    function console_log( $data ){
+	    echo '<script>';
+	    echo 'console.log('. json_encode( $data ) .')';
+	    echo '</script>';
+	}
 ?>

@@ -7,13 +7,14 @@
     if (isset($_GET['id'])){
         $id_del=intval($_GET['id']);
         if($getTicket=="1"){
-            $query="SELECT ticket.id,ticket.title,ticket.description, ticket.updated_at,ticket.created_at,ticket.fecha_entrega, tk.name as tipo,tc.name as \"tipo_trabajo\",tpr.name as proyecto,tu.name as \"solicitante\",tp.name as Prioridad,ts.name as Estado FROM `ticket` LEFT JOIN kind as tk on (tk.id=ticket.kind_id) LEFT JOIN status as ts on (ts.id=ticket.status_id) LEFT JOIN priority as tp on (tp.id=ticket.priority_id) LEFT JOIN category as tc on (tc.id=ticket.category_id) LEFT JOIN user as tu on (tu.id=ticket.user_id) LEFT JOIN project as tpr on (tpr.id = ticket.project_id) WHERE ticket.id=$id_del";
+            $query="SELECT ticket.id,ticket.title,ticket.description, ticket.updated_at,ticket.created_at,ticket.fecha_entrega, tk.name as tipo,tc.name as \"tipo_trabajo\",tpr.name as proyecto,tu.name as \"solicitante\",tp.name as Prioridad,ts.name as Estado , adjunto FROM `ticket` LEFT JOIN kind as tk on (tk.id=ticket.kind_id) LEFT JOIN status as ts on (ts.id=ticket.status_id) LEFT JOIN priority as tp on (tp.id=ticket.priority_id) LEFT JOIN category as tc on (tc.id=ticket.category_id) LEFT JOIN user as tu on (tu.id=ticket.user_id) LEFT JOIN project as tpr on (tpr.id = ticket.project_id) WHERE ticket.id=$id_del";
             echo json_encode(mysqli_fetch_array(mysqli_query($con,$query)));
         }else{
             $query=mysqli_query($con, "SELECT * from ticket where id='".$id_del."'");
             $count=mysqli_num_rows($query);
 
-            if ($delete1=mysqli_query($con,"DELETE FROM ticket WHERE id='".$id_del."'")){
+            // if ($delete1=mysqli_query($con,"DELETE FROM ticket WHERE id='".$id_del."'")){
+            if ($delete1=mysqli_query($con,"UPDATE ticket SET status_id=6 WHERE id='".$id_del."'")){
 
 
 ?>
@@ -101,9 +102,10 @@
                 <?php 
                         while ($r=mysqli_fetch_array($query)) {
                             $id=$r['id'];
-                            $created_at=date('d/m/Y', strtotime($r['created_at']));
-                            $updated_at=date('d/m/Y', strtotime($r['updated_at']));
-                            $fecha_entrega=date('d/m/Y', strtotime($r['fecha_entrega']));
+                            
+                            $created_at= date('d/m/Y', strtotime($r['created_at']));
+                            $updated_at=(isset($r['updated_at']) && !empty($r['updated_at']) && $r['updated_at']!='0000-00-00') ? date('d/m/Y', strtotime($r['updated_at'])):$created_at;
+                            $fecha_entrega=(isset($r['fecha_entrega']) && !empty($r['fecha_entrega']) && $r['fecha_entrega']!='0000-00-00')?  date('d/m/Y', strtotime($r['fecha_entrega'])):' ';
 
 
                             $description=$r['description'];
@@ -114,6 +116,8 @@
                             $kind_id=$r['kind_id'];
                             $category_id=$r['category_id'];
                             $empresa_asig=$r['empresa_id_asig'];
+                            $adjunto= (isset($r['adjunto']) && !empty($r['adjunto']))?"Adjuntos/".$r['adjunto']:"#";
+                            $adjunto_name=  (isset($r['adjunto']) && !empty($r['adjunto']))?$r['adjunto']:"#";
 
                             $sql = mysqli_query($con, "select * from category where id=$category_id");
                             if($c=mysqli_fetch_array($sql)) {
@@ -141,6 +145,8 @@
                             }
 
 
+
+
                 ?>
                     <input type="hidden" value="<?php echo $id;?>" id="id<?php echo $id;?>">
                     <input type="hidden" value="<?php echo $title;?>" id="title<?php echo $id;?>">
@@ -165,8 +171,11 @@
                         <td><?php echo $name_status;?></td>
                         <td><ul><li>Solicitado en:  <?php echo $created_at;?></li><li>Última modificación en: <?php echo $updated_at;?></li><li>Entrega Estimada:  <?php echo $fecha_entrega;?></li></ul></td>
                         <td ><span class="pull-right">
-                        <a href="#" class='btn btn-default' title='Editar producto' onclick="obtener_datos('<?php echo $id;?>');" data-toggle="modal" data-target=".bs-example-modal-lg-udp"><i class="glyphicon glyphicon-edit"></i></a> 
-                        <a href="#" class='btn btn-default' title='Borrar producto' onclick="eliminar('<?php echo $id; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
+                        <a href="#" class='btn btn-default' title='Editar ticket' onclick="obtener_datos('<?php echo $id;?>');" data-toggle="modal" data-target=".bs-example-modal-lg-udp"><i class="glyphicon glyphicon-edit"></i></a>
+                        <?php if ( $adjunto !='#'){ ?>
+                        <a href="<?php echo $adjunto ?>" class='btn btn-default' download="<?php echo  $adjunto_name ?>" title='Descargar Adjunto- <?php echo  $adjunto_name ?>'><i class="fa fa-download"></i> </a>
+                        <?php } ?> 
+                        <a href="#" class='btn btn-default' title='Cancelar ticket' onclick="eliminar('<?php echo $id; ?>')"><i class="fa fa-ban"></i> </a></span></td>
                     </tr>
                 <?php
                     } //en while

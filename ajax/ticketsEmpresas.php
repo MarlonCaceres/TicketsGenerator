@@ -104,9 +104,9 @@
                 <?php 
                         while ($r=mysqli_fetch_array($query)) {
                             $id=$r['id'];
-                            $created_at=date('d/m/Y', strtotime($r['created_at']));
-                            $updated_at=date('d/m/Y', strtotime($r['updated_at']));
-                            $fecha_entrega=date('d/m/Y', strtotime($r['fecha_entrega']));
+                            $created_at= date('d/m/Y', strtotime($r['created_at']));
+                            $updated_at=(isset($r['updated_at']) && !empty($r['updated_at']) && $r['updated_at']!='0000-00-00') ? date('d/m/Y', strtotime($r['updated_at'])):$created_at;
+                            $fecha_entrega=(isset($r['fecha_entrega']) && !empty($r['fecha_entrega']) && $r['fecha_entrega']!='0000-00-00')?  date('d/m/Y', strtotime($r['fecha_entrega'])):' ';
 
 
                             $description=$r['description'];
@@ -117,6 +117,9 @@
                             $kind_id=$r['kind_id'];
                             $category_id=$r['category_id'];
                             $user_id=$r['user_id'];
+
+                            $adjunto= (isset($r['adjunto']) && !empty($r['adjunto']))?"Adjuntos/".$r['adjunto']:"#";
+                            $adjunto_name=  (isset($r['adjunto']) && !empty($r['adjunto']))?$r['adjunto']:"#";
 
 
                             $sql = mysqli_query($con, "select * from category where id=$category_id");
@@ -170,8 +173,11 @@
                         <td><ul><li>Solicitado en:  <?php echo $created_at;?></li><li>Última modificación en: <?php echo $updated_at;?></li><li>Entrega Estimada:  <?php echo $fecha_entrega;?></li></ul></td>
                         <td hidden>mod</td>
                         <td ><span class="pull-right">
-                        <a href="#" class='btn btn-default' title='Editar producto' onclick="obtener_datos('<?php echo $id;?>');" data-toggle="modal" data-target=".bs-example-modal-lg-udp"><i class="glyphicon glyphicon-edit"></i></a> 
-                        <a href="#" class='btn btn-default' title='Borrar producto' onclick="eliminar('<?php echo $id; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
+                        <a href="#" class='btn btn-default' title='Editar producto' onclick="obtener_datos('<?php echo $id;?>');" data-toggle="modal" data-target=".bs-example-modal-lg-udp"><i class="glyphicon glyphicon-edit"></i></a>
+                        <?php if ( $adjunto !='#'){ ?>
+                        <a href="<?php echo $adjunto ?>" class='btn btn-default' download="<?php echo  $adjunto_name ?>" title='Descargar Adjunto- <?php echo  $adjunto_name ?>'><i class="fa fa-download"></i> </a>
+                        <?php } ?> 
+                        </span>
                     </tr>
                 <?php
                     } //en while

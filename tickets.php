@@ -62,13 +62,23 @@
 <script type="text/javascript" src="js/VentanaCentrada.js"></script>
 <script>
 $("#add").submit(function(event) {
-  $('#save_data').attr("disabled", true);
-  
- var parametros = $(this).serialize();
+    event.preventDefault();
+ $('#save_data').attr("disabled", true);
+ 
+ var parametros = $(this).serializeArray();
+ var FormData2= new FormData();
+ FormData2.append("adjunto",$("#adjunto")[0].files[0]);
+$.each(parametros,function(key,input){
+    FormData2.append(input.name,input.value);
+});
+ 
      $.ajax({
             type: "POST",
-            url: "action/addticket.php",
-            data: parametros,
+            url: "action/addticket.php",           
+            data: FormData2,
+            cache: false,
+            contentType: false,
+            processData: false,
              beforeSend: function(objeto){
                 $("#result").html("Mensaje: Cargando...");
               },
@@ -83,13 +93,23 @@ $("#add").submit(function(event) {
 
 
 $( "#upd" ).submit(function( event ) {
+     event.preventDefault();
   $('#upd_data').attr("disabled", true);
-  
- var parametros = $(this).serialize();
+    $("#mod_adjunto")
+    var parametros = $(this).serializeArray();
+    var FormData2= new FormData();
+    FormData2.append("adjunto",$("#mod_adjunto")[0].files[0]);
+    $.each(parametros,function(key,input){
+        FormData2.append(input.name,input.value);
+    });
+ //var parametros = $(this).serialize();
      $.ajax({
             type: "POST",
             url: "action/updticket.php",
-            data: parametros,
+            data: FormData2,
+            cache: false,
+            contentType: false,
+            processData: false,
              beforeSend: function(objeto){
                 $("#result2").html("Mensaje: Cargando...");
               },

@@ -34,6 +34,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mod_Adjunto">Adjunto:
+                           </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                            <a  id="mod_Adjunto" href="#" class='btn btn-default btn-block' download="" title='Descargar Adjunto'><i class="fa fa-download"></i> </a>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Solicitado por:
                            </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">

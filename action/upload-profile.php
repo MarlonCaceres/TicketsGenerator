@@ -8,6 +8,7 @@ if (isset($_SESSION['user_id'])&& $_SESSION['user_id']!=null) {
 
 if (isset($_FILES["file"]))
 {
+    
     $file = $_FILES["file"];
     $name = $file["name"];
     $type = $file["type"];

@@ -155,7 +155,11 @@
 <script>
     $(function(){
         $("input[name='file']").on("change", function(){
+            var parametros= $("#formulario").serialize();
+            console.log("HOla");
+             console.log(parametros);
             var formData = new FormData($("#formulario")[0]);
+            console.log(formData);
             var ruta = "action/upload-profile.php";
             $.ajax({
                 url: ruta,

@@ -106,7 +106,7 @@ if($action == 'ajax' && !empty( $_REQUEST['idEmpresa']) && isset($_REQUEST['idEm
             <table class="table table-striped jambo_table bulk_action">
                 <thead>
                 <tr class="headings">
-                    <th class="column-title">Nombre Categoria </th>
+                    <th class="column-title">Tipo de trabajo </th>
                     <?php if ($isAdmin) {?>
                         <th class="column-title">Empresa</th>
                     <?php }?>

@@ -20,7 +20,7 @@ $empresas =mysqli_query($con, "select * from company");
                     <h4 class="modal-title" id="myModalLabel">Agregar Ticket</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal form-label-left input_mask" method="post" id="add" name="add">
+                    <form class="form-horizontal form-label-left input_mask" method="post" id="add" name="add" enctype="multipart/form-data">
                         <div id="result"></div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tipo
@@ -59,7 +59,7 @@ $empresas =mysqli_query($con, "select * from company");
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Empresa
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Empresa <span class="required">*</span>
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <select class="form-control" name="empresa_id" id="empresa_id" >
@@ -101,6 +101,14 @@ $empresas =mysqli_query($con, "select * from company");
                                 </select>
                             </div>
                         </div>-->
+                        
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="adjunto">Adjunto</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="file" name="adjunto" id="adjunto" class="custom-file-input">                      
+                        
+                        </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Estado
                             </label>
@@ -111,8 +119,7 @@ $empresas =mysqli_query($con, "select * from company");
                                       <?php }?>
                                   <?php endforeach; ?>
                             </div>
-                        </div>
-                        <div class="ln_solid"></div>
+                        </div>                        
                         <div class="form-group">
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                               <button id="save_data" type="submit" class="btn btn-success">Guardar</button>

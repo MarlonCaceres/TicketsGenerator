@@ -19,7 +19,7 @@
                     <h4 class="modal-title" id="myModalLabel"> Editar Ticket</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal form-label-left input_mask" method="post" id="upd" name="upd">
+                    <form class="form-horizontal form-label-left input_mask" method="post" id="upd" name="upd" >
                         <div id="result2"></div>
 
                         <input type="hidden" name="mod_id" id="mod_id">
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Empresa
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Empresa <span class="required">*</span>
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <select class="form-control" name="empresa_id" id="mod_empresa_asig" >
@@ -76,7 +76,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tipo de trabajo
                             </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" name="category_id" required id="mod_category_id">
+                                <select class="form-control" name="category_id"  id="mod_category_id">
                                     <option selected="" value="">-- Selecciona --</option>
                                       <?php /*foreach($categories as $p):*/?><!--
                                         <option value="<?php /*echo $p['id']; */?>"><?php /*echo $p['name']; */?></option>
@@ -88,6 +88,12 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha estimada de entrega</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <input type="date" class="form-control" name="fecha_entrega" id="mod_fecha_entrega">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mod_adjunto">Adjunto</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="file" name="mod_adjunto" id="mod_adjunto" class="custom-file-input">                        
                             </div>
                         </div>
                         <div class="form-group">

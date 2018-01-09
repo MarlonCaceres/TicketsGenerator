@@ -120,6 +120,19 @@ $( "#upd" ).submit(function( event ) {
                 $("#mod_status_id").val(datos.Estado);
                 $("#mod_solicitado").val(datos.solicitante);
                 $("#mod_category_id").val(datos.tipo_trabajo);
+                
+                if( datos.adjunto  && datos.adjunto != null ){
+                    $("#mod_Adjunto").removeAttr("disabled");
+                    $("#mod_Adjunto").attr("href","Adjuntos/"+datos.adjunto);
+                    $("#mod_Adjunto").attr("download",datos.adjunto);
+                    $("#mod_Adjunto").attr("title","Descargar adjunto - "+datos.adjunto);
+                    $("#mod_Adjunto").html('<i class="fa fa-download"></i> ' + datos.adjunto );                   
+                }else{
+                     $("#mod_Adjunto").attr('<i class="fa fa-download"></i>  Sin Adjunto' );
+                     $("#mod_Adjunto").attr("disabled","disabled");                     
+                }
+
+                
 
                 var txt="<ul>";
                     txt+="<li><strong>Solicitado en:</strong>"+datos.created_at+"</li>";
