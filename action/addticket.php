@@ -16,8 +16,13 @@
 		){		
 
 		include "../config/config.php";//Contiene funcion que conecta a la base de datos
+		$codigo;
+		$company = mysqli_query($con, "select * from company where id= ".$_POST["empresa_id"]);
+		foreach($company as $p){
+			$codigo=$p['code'];
+		}
 
-		$title = $_POST["title"];
+		$title = $codigo."-".$_POST["title"];
 		$description = $_POST["description"];
 		$category_id = (isset($_POST['category_id']) && !empty($_POST["category_id"]))? $_POST["category_id"] :0;
 		$project_id = (isset($_POST['project_id']) && !empty($_POST["project_id"]))? $_POST["project_id"] :0;

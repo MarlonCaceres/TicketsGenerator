@@ -96,8 +96,8 @@
                         <th class="column-title">Proyecto </th>
                         <th class="column-title">Prioridad </th>
                         <th class="column-title">Estado </th>
-                        <th>Fecha</th>
-                        <th class="column-title no-link last"><span class="nobr"></span></th>
+                        <th class="column-title text-center">Detalle Ticket</th>
+                        <th class="column-title no-link last" width="160"><span class="nobr"></span></th>
                     </tr>
                 </thead>
                 <tbody>

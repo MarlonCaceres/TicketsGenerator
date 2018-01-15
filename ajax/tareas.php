@@ -115,7 +115,7 @@
                         <th class="column-title">Ticket </th>
                         <th class="column-title">Status </th>
                         <th class="column-title">Fecha</th>
-                        <th class="column-title no-link last"><span class="nobr"></span></th>
+                        <th class="column-title no-link last" width="160"><span class="nobr"></span></th>
                     </tr>
                 </thead>
                 <tbody>

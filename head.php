@@ -66,8 +66,8 @@
             <div class="main_container">
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
-                        <div class="navbar nav_title" style="border: 0;">
-                          <a href="#" class="site_title"><i class="fa fa-ticket"></i> <span>Ticketly</span></a>
+                        <div class="navbar nav_title " style="border: 0;" >
+                          <a href="#" class="site_title"><!--i class="fa fa-ticket"></i--><img src="images/mertil_w.png" width="40" height="40"> <!--span>Ticketly</span--> <span style="font-family: cursive; padding-left: 50px;"> Merctil</span></a>
                         </div>
                         <div class="clearfix"></div>
                             <input type="hidden" id="idUser" value="<?php echo $id;?>">

@@ -27,7 +27,7 @@
                             <select class="form-control" required name="rol">
                                     <option value="" selected>-- Selecciona rol --</option>
                                     <option value="Administrador">Administrador</option>
-                                    <option value="Directivo" >Directivo</option>  
+                                    <option value="Directivo" >Coordinador</option>  
                                     <option value="Empleado" >Empleado</option>  
                             </select>
                         </div>

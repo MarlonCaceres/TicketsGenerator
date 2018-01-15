@@ -46,9 +46,11 @@
                                 </div>";
                         }
                     ?>
+                    <h1 class="text-center"><!--i class="fa fa-ticket"></i--> <img src="images/mertil_b.png" width="100" height="100"> </h1>
                     <section class="login_content">
+
                         <form action="action/login.php" method="post">
-                            <h1>Iniciar Sesión</h1>
+                            <h1 style="color: #000;">Iniciar Sesión</h1>
                             <div>
                                 <input type="text" name="email" class="form-control" placeholder="Correo Electrónico" required />
                             </div>
@@ -57,17 +59,17 @@
                             </div>
                             <div>
                                 <button type="submit" name="token" value="Login" class="btn btn-default">Iniciar Sesion</button>
-                                <a class="reset_pass" href="#">Olvidaste Tu contraseña?</a>
+                                <!--a class="reset_pass" href="#">Olvidaste Tu contraseña?</a-->
                             </div>
-                            <div class="clearfix"></div>
+                            <!--div class="clearfix"></div>
                             <div class="separator">
                                 <div class="clearfix"></div>
                                 <br />
                                 <div>
-                                    <h1><i class="fa fa-ticket"></i> Ticketly!</h1>
-                                    <p> <a style="text-decoration: underline;" target="_blank" href="http://github.com/amnersaucedososa">Support</a>is a Bootstrap 3 template. Privacy and Terms by <a target="_blank" style="text-decoration: underline;" href="http://github.com/amnersaucedososa">Abisoft</a></p>
+                                    <h1><i class="fa fa-ticket"></i> <img src="images/mertil_b.png" width="100" height="100"> </h1-->
+                                    <!--p> <a style="text-decoration: underline;" target="_blank" href="http://github.com/amnersaucedososa">Support</a>is a Bootstrap 3 template. Privacy and Terms by <a target="_blank" style="text-decoration: underline;" href="http://github.com/amnersaucedososa">Abisoft</a></p>
                                 </div>
-                            </div>
+                            </div-->
                         </form>
                     </section>
                 </div>

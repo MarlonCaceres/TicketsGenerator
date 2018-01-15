@@ -30,14 +30,14 @@
                         </div>
 
                         <!-- form search -->
-                        <form class="form-horizontal" role="form">
+                        <form class="form-horizontal" role="form" method="GET">
                             <input type="hidden" name="view" value="reports">
                             <div class="form-group">
                             <div class="col-lg-3">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-male"></i></span>
                                     <select name="project_id" class="form-control">
-                                    <option value="">PROJECTO</option>
+                                    <option value="">PROYECTO (Todos)</option>
                                       <?php foreach($projects as $p):?>
                                         <option value="<?php echo $p['id']; ?>" <?php if(isset($_GET["project_id"]) && $_GET["project_id"]==$p['id']){ echo "selected"; } ?>><?php echo $p['name']; ?></option>
                                       <?php endforeach; ?>
@@ -48,7 +48,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-support"></i></span>
                                     <select name="priority_id" class="form-control">
-                                    <option value="">PRIORIDAD</option>
+                                    <option value="">PRIORIDAD (Todos)</option>
                                       <?php foreach($priorities as $p):?>
                                         <option value="<?php echo $p['id']; ?>" <?php if(isset($_GET["priority_id"]) && $_GET["priority_id"]==$p['id']){ echo "selected"; } ?>><?php echo $p['name']; ?></option>
                                       <?php endforeach; ?>
@@ -73,6 +73,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">ESTADO</span>
                                         <select name="status_id" class="form-control">
+                                            <option value=''>Estado (Todos)</option>
                                           <?php foreach($statuses as $p):?>
                                             <option value="<?php echo $p['id']; ?>" <?php if(isset($_GET["status_id"]) && $_GET["status_id"]==$p['id']){ echo "selected"; } ?>><?php echo $p['name']; ?></option>
                                           <?php endforeach; ?>
@@ -82,7 +83,7 @@
                                 <div class="col-lg-3">
                                     <div class="input-group">
                                         <span class="input-group-addon">TIPO</span>
-                                        <select name="kind_id" class="form-control" disabled>
+                                        <select name="kind_id" class="form-control" disabled="">
                                           <?php foreach($kinds as $p):?>
                                             <option value="<?php echo $p['id']; ?>" <?php if(isset($_GET["kind_id"]) && $_GET["kind_id"]==$p['id']){ echo "selected"; } ?>><?php echo $p['name']; ?></option>
                                           <?php endforeach; ?>
@@ -97,53 +98,58 @@
                         <!-- end form search -->
 
                          <?php
-                                        $users= array();
-                                        if((isset($_GET["status_id"]) && isset($_GET["kind_id"]) && isset($_GET["project_id"]) && isset($_GET["priority_id"]) && isset($_GET["start_at"]) && isset($_GET["finish_at"]) ) && ($_GET["status_id"]!="" ||$_GET["kind_id"]!="" || $_GET["project_id"]!="" || $_GET["priority_id"]!="" || ($_GET["start_at"]!="" && $_GET["finish_at"]!="") ) ) {
-                                        $sql = "select * from ticket where ";
-                                        if($_GET["status_id"]!=""){
-                                            $sql .= " status_id = ".$_GET["status_id"];
-                                        }
+                            $status_id=(isset($_GET['status_id']))?$_GET['status_id']:'';
+                            $kind_id=1;
+                            $project_id=(isset($_GET['project_id']))?$_GET['project_id']:'';
+                            $priority_id=(isset($_GET['priority_id']))?$_GET['priority_id']:'';
+                            $start_at=(isset($_GET['start_at']))?$_GET['start_at']:'';
+                            $finish_at=(isset($_GET['finish_at']))?$_GET['finish_at']:'';
 
-                                        if($_GET["kind_id"]!=""){
-                                        if($_GET["status_id"]!=""){
-                                            $sql .= " and ";
-                                        }
-                                            $sql .= " kind_id = ".$_GET["kind_id"];
-                                        }
+                            $users= array();
+                            if((isset($_GET['status_id']) && isset($_GET['kind_id']) && 
+                                isset($_GET['project_id']) && isset($_GET['priority_id']) && 
+                                isset($_GET['start_at']) && isset($_GET['finish_at']) ) || 
+                                (($status_id!='') || 
+                                    ($project_id!='') || ($priority_id!='') || 
+                                    ($start_at!='') || ($finish_at!='') ) ) {
+                                $sql = "select * from ticket where ";
 
+                                if($_GET["status_id"]!=""){
+                                    $sql .= " status_id = ".$_GET["status_id"];
+                                }
+                                /*if($_GET["kind_id"]!=""){
+                                    if($_GET["status_id"]!=""){
+                                        $sql .= " and ";
+                                    }
+                                    $sql .= " kind_id = ".$_GET["kind_id"];
+                                }*/
+                                if($_GET["project_id"]!=""){
+                                    if($_GET["status_id"]!=""||$_GET["kind_id"]!=""){
+                                        $sql .= " and ";
+                                    }
+                                    $sql .= " project_id = ".$_GET["project_id"];
+                                }
+                                if($_GET["priority_id"]!=""){
+                                    if($_GET["status_id"]!=""||$_GET["project_id"]!=""||$_GET["kind_id"]!=""){
+                                        $sql .= " and ";
+                                    }
+                                    $sql .= " priority_id = ".$_GET["priority_id"];
+                                }
+                                if($_GET["start_at"]!="" && $_GET["finish_at"]){
+                                    if($_GET["status_id"]!=""||$_GET["project_id"]!="" ||$_GET["priority_id"]!="" ||$_GET["kind_id"]!="" ){
+                                        $sql .= " and ";
+                                    }
+                                    $sql .= " ( date_at >= \"".$_GET["start_at"]."\" and date_at <= \"".$_GET["finish_at"]."\" ) ";
+                                }
+                                
+                                $users = mysqli_query($con, $sql);
+                                //echo $sql;
+                            }else{
 
-                                        if($_GET["project_id"]!=""){
-                                        if($_GET["status_id"]!=""||$_GET["kind_id"]!=""){
-                                            $sql .= " and ";
-                                        }
-                                            $sql .= " project_id = ".$_GET["project_id"];
-                                        }
-
-                                        if($_GET["priority_id"]!=""){
-                                        if($_GET["status_id"]!=""||$_GET["project_id"]!=""||$_GET["kind_id"]!=""){
-                                            $sql .= " and ";
-                                        }
-
-                                            $sql .= " priority_id = ".$_GET["priority_id"];
-                                        }
-
-
-
-                                        if($_GET["start_at"]!="" && $_GET["finish_at"]){
-                                        if($_GET["status_id"]!=""||$_GET["project_id"]!="" ||$_GET["priority_id"]!="" ||$_GET["kind_id"]!="" ){
-                                            $sql .= " and ";
-                                        }
-
-                                            $sql .= " ( date_at >= \"".$_GET["start_at"]."\" and date_at <= \"".$_GET["finish_at"]."\" ) ";
-                                        }
-
-                                                $users = mysqli_query($con, $sql);
-
-                                        }else{
-                                                $users = mysqli_query($con, "select * from ticket order by created_at desc");
-
-                                        }
-
+                                $sql="select * from ticket order by created_at desc";
+                                $users = mysqli_query($con, $sql);
+                                //echo $sql;
+                            }
                             if(@mysqli_num_rows($users)>0){
                                 // si hay reportes
                                 $_SESSION["report_data"] = $users;
