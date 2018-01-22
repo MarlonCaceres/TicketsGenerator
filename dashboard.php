@@ -93,7 +93,7 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Correo electronico 
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="last-name" name="email" class="form-control col-md-7 col-xs-12" value="<?php echo $email; ?>" disabled>
+                                            <input type="text" id="email" name="email" class="form-control col-md-7 col-xs-12" value="<?php echo $email; ?>" disabled>
                                         </div>
                                     </div>
 
@@ -119,21 +119,21 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contraseña antigua
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="birthday" name="password" class="date-picker form-control col-md-7 col-xs-12" type="text" placeholder="Contraseña Actual">
+                                            <input type="password" id="password" name="password" class="date-picker form-control col-md-7 col-xs-12" type="text" placeholder="Contraseña Actual">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Nueva contraseña 
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="birthday" name="new_password" class="date-picker form-control col-md-7 col-xs-12" type="text" placeholder="Nueva Contraseña">
+                                            <input type="password" id="new_password" name="new_password" class="date-picker form-control col-md-7 col-xs-12" type="text" placeholder="Nueva Contraseña">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar contraseña nueva
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                      <input id="birthday" name="confirm_new_password" class="date-picker form-control col-md-7 col-xs-12" type="text" placeholder="Confirme Contraseña">
+                                      <input type="password" id="confirm_new_password" name="confirm_new_password" class="date-picker form-control col-md-7 col-xs-12" type="text" placeholder="Confirme Contraseña">
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>

@@ -23,7 +23,7 @@
         $error=sha1(md5("las nuevas  contraseñas no coinciden"));
         if (isset($_GET['error']) && $_GET['error']==$error) {
             echo "<div class='alert alert-danger alert-dismissible fade in' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span>
-                </button><strong>Aviso!</strong> Las nuevas contraseñas no coinciden
+                </button><strong>Aviso!</strong> Las nuevas contraseñas no coinciden o los campos se encuentran vacios.
                 </div>";
         }
     }
